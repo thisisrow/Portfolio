@@ -1,12 +1,13 @@
 import React from 'react'
-import birdScene from '../assets/3d/bird.glb'
+import { useGLTF } from '@react-three/drei';
+import birdScene from "../assets/3d/bird.glb";
 const Bird = () => {
-    const {scene,animation} = useGLTF(birdScene);
+    const {scene,animate}=useGLTF(birdScene);
   return (
-    <mesh position={[-5,2, 1]} scale={[0.003, 0.003, 0.003]}>
+    <mesh position={[-5, 2, 1]} scale={[0.003, 0.003, 0.003]}>
         <primitive object={scene} />
     </mesh>
   )
 }
 
-export default Bird
+export default Bird;
