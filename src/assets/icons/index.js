@@ -26,6 +26,13 @@ import arrow from './arrow.svg'
 import contact from './contact.svg'
 import soundon from './soundon.png'
 import soundoff from './soundoff.png'
+import bootstrap from './bootstrap.svg'
+import mysql from './mysql.svg'
+import jquery from './jquery.svg'
+import vite from './vite.svg'
+import postman from './postman.svg'
+import vercel from './vercel.svg'
+
 
 export {
     css,
@@ -55,5 +62,11 @@ export {
     arrow,
     contact,
     soundon,
-    soundoff
+    soundoff,
+    bootstrap,
+    mysql,
+    jquery,
+    vite,
+    postman,
+    vercel
 }
