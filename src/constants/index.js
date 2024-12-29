@@ -227,7 +227,7 @@ export const projects = [
         iconUrl: pricewise,
         theme: 'btn-back-red',
         name: 'Vcet-NSS',
-        description: 'Developed a comprehensive Android application designed to streamline NSS operations. The app enables efficient tracking of volunteer attendance, management of events, and facilitates interactive discussions by allowing members to create and share posts on various topics. It serves as a centralized platform to enhance collaboration among NSS members.',
+        description: 'Developed a comprehensive full-stack Android application designed to streamline NSS operations. The app enables efficient tracking and notifying of volunteer attendance, management of events, and facilitates interactive discussions by allowing members to create and share posts on various topics. It serves as a centralized platform to enhance collaboration among NSS members.',
         link: 'https://github.com/thisisrow/Vcet-NSS',
     },
     {
@@ -255,14 +255,8 @@ export const projects = [
         iconUrl: estate,
         theme: 'btn-back-black',
         name: 'NGO',
-        description: 'Developed a website for an NGO to facilitate the online display and sale of their products. The platform allows users to browse and purchase items, promoting the NGO initiatives, while transactions are handled through offline payment methods to simplify operations.'
-
-
-
-
-
-,
-        link: '#',
+        description: 'Developed a website for an NGO to facilitate the online display and sale of their products. The platform allows users to browse and purchase items, promoting the NGO initiatives, while transactions are handled through offline payment methods to simplify operations.',
+        link: 'https://github.com/thisisrow/NGO',
     },
     // {
     //     iconUrl: summiz,
