@@ -224,6 +224,13 @@ export const socialLinks = [
 
 export const projects = [
     {
+        iconUrl: estate,
+        theme: 'btn-back-black',
+        name: 'NGO',
+        description: 'Developed a website for an NGO to facilitate the online display and sale of their products. The platform allows users to browse and purchase items, promoting the NGO initiatives, while transactions are handled through offline payment methods to simplify operations.',
+        link: 'https://github.com/thisisrow/NGO',
+    },
+    {
         iconUrl: pricewise,
         theme: 'btn-back-red',
         name: 'Vcet-NSS',
@@ -251,13 +258,7 @@ export const projects = [
         description: 'Developed an engaging entertainment website catering to diverse interests. The platform includes a variety of fun and interactive content such as jokes, riddles, and cocktail recipes, among other features. It is designed to provide users with a joyful and relaxing browsing experience.',
         link: 'https://github.com/thisisrow/KnowJoy',
     },
-    {
-        iconUrl: estate,
-        theme: 'btn-back-black',
-        name: 'NGO',
-        description: 'Developed a website for an NGO to facilitate the online display and sale of their products. The platform allows users to browse and purchase items, promoting the NGO initiatives, while transactions are handled through offline payment methods to simplify operations.',
-        link: 'https://github.com/thisisrow/NGO',
-    },
+    
     // {
     //     iconUrl: summiz,
     //     theme: 'btn-back-yellow',
