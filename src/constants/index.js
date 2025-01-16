@@ -223,6 +223,14 @@ export const socialLinks = [
 ];
 
 export const projects = [
+    
+    {
+        iconUrl: summiz,
+        theme: 'btn-back-yellow',
+        name: 'Real-Time Cryptocurrency Price Monitoring & Alerting System',
+        description: 'This application enables users to monitor real-time cryptocurrency prices and receive alerts based on price fluctuations. The backend is optimized with a caching mechanism to ensure efficient and fast responses. The application interacts with a cryptocurrency API (CoinGecko API) to retrieve price data.',
+        link: 'https://github.com/thisisrow/Task2',
+    },
     {
         iconUrl: estate,
         theme: 'btn-back-black',
@@ -257,13 +265,5 @@ export const projects = [
         name: ' KnowJoy',
         description: 'Developed an engaging entertainment website catering to diverse interests. The platform includes a variety of fun and interactive content such as jokes, riddles, and cocktail recipes, among other features. It is designed to provide users with a joyful and relaxing browsing experience.',
         link: 'https://github.com/thisisrow/KnowJoy',
-    },
-    
-    {
-        iconUrl: summiz,
-        theme: 'btn-back-yellow',
-        name: 'Real-Time Cryptocurrency Price Monitoring & Alerting System',
-        description: 'This application enables users to monitor real-time cryptocurrency prices and receive alerts based on price fluctuations. The backend is optimized with a caching mechanism to ensure efficient and fast responses. The application interacts with a cryptocurrency API (CoinGecko API) to retrieve price data.',
-        link: 'https://github.com/thisisrow/Task2',
     }
 ];
