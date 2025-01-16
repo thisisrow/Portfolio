@@ -259,11 +259,11 @@ export const projects = [
         link: 'https://github.com/thisisrow/KnowJoy',
     },
     
-    // {
-    //     iconUrl: summiz,
-    //     theme: 'btn-back-yellow',
-    //     name: 'AI Summarizer Application',
-    //     description: 'App that leverages AI to automatically generate concise & informative summaries from lengthy text content, or blogs.',
-    //     link: '#',
-    // }
+    {
+        iconUrl: summiz,
+        theme: 'btn-back-yellow',
+        name: 'Real-Time Cryptocurrency Price Monitoring & Alerting System',
+        description: 'This application enables users to monitor real-time cryptocurrency prices and receive alerts based on price fluctuations. The backend is optimized with a caching mechanism to ensure efficient and fast responses. The application interacts with a cryptocurrency API (CoinGecko API) to retrieve price data.',
+        link: 'https://github.com/thisisrow/Task2',
+    }
 ];
