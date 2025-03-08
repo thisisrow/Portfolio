@@ -24,7 +24,16 @@ export default {
       },
       boxShadow: {
         card: '0px 1px 2px 0px rgba(0, 0, 0, 0.05)'
-      }
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translate(-50%, -60%)' },
+          '100%': { opacity: '1', transform: 'translate(-50%, -50%)' },
+        },
+      },
     },
   },
   plugins: [],

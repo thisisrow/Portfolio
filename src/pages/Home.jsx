@@ -5,6 +5,7 @@ import sakura from "../assets/sakura.mp3";
 import { HomeInfo, Loader } from "../components";
 import { soundoff, soundon } from "../assets/icons";
 import { Bird, Island, Plane, Sky } from "../models";
+import { arrow } from "../assets/icons";
 
 const Home = () => {
   const audioRef = useRef(new Audio(sakura));
@@ -14,6 +15,7 @@ const Home = () => {
   const [currentStage, setCurrentStage] = useState(1);
   const [isRotating, setIsRotating] = useState(false);
   const [isPlayingMusic, setIsPlayingMusic] = useState(true);
+  const [showPopup, setShowPopup] = useState(true);
 
   useEffect(() => {
     // Try to play audio immediately when component mounts
@@ -54,6 +56,15 @@ const Home = () => {
     };
   }, []);
 
+  useEffect(() => {
+    // Hide popup after 3 seconds
+    const timer = setTimeout(() => {
+      setShowPopup(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const adjustBiplaneForScreenSize = () => {
     let screenScale, screenPosition;
 
@@ -88,6 +99,16 @@ const Home = () => {
 
   return (
     <section className='w-full h-screen relative'>
+      {showPopup && (
+        <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm px-8 py-4 rounded-lg shadow-lg z-50 flex items-center gap-4 animate-fade-in'>
+          <img src={arrow} alt="arrow left" className="w-6 h-6 object-contain rotate-180" />
+          <p className="text-black text-sm font-medium">
+            Drag left or right to view information
+          </p>
+          <img src={arrow} alt="arrow right" className="w-6 h-6 object-contain" />
+        </div>
+      )}
+
       <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center'>
         {currentStage && <HomeInfo currentStage={currentStage} />}
       </div>
