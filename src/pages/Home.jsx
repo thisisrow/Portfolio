@@ -16,14 +16,43 @@ const Home = () => {
   const [isPlayingMusic, setIsPlayingMusic] = useState(true);
 
   useEffect(() => {
+    // Try to play audio immediately when component mounts
+    const playAudio = async () => {
+      try {
+        await audioRef.current.play();
+      } catch (error) {
+        // Browser prevented autoplay, set playing state to false
+        setIsPlayingMusic(false);
+      }
+    };
+
     if (isPlayingMusic) {
-      audioRef.current.play();
+      playAudio();
+    } else {
+      audioRef.current.pause();
     }
 
+    // Cleanup function to pause audio when component unmounts
     return () => {
       audioRef.current.pause();
     };
   }, [isPlayingMusic]);
+
+  // Add click handler for the entire page
+  useEffect(() => {
+    const handleFirstInteraction = () => {
+      if (!audioRef.current.playing && isPlayingMusic) {
+        audioRef.current.play();
+      }
+    };
+
+    // Add click listener to the entire document
+    document.addEventListener('click', handleFirstInteraction, { once: true });
+
+    return () => {
+      document.removeEventListener('click', handleFirstInteraction);
+    };
+  }, []);
 
   const adjustBiplaneForScreenSize = () => {
     let screenScale, screenPosition;
