@@ -182,7 +182,6 @@ export const experiences = [
       "Designed modular and scalable architecture for maintainability.",
       "Created pages for booking, details, and property management.",
       "Enhanced user experience with responsive design and interactivity.",
-      F,
     ],
   },
   /*
