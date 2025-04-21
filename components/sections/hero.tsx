@@ -86,7 +86,7 @@ export function Hero() {
           >
             <Image
               src="https://res.cloudinary.com/db1nsxnit/image/upload/v1743251988/profilel_zqa4ac.png"
-              alt="John Doe"
+              alt="Prathamesh Mishra"
               width={500}
               height={500}
               className="w-full h-full object-cover rounded-3xl"
