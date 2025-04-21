@@ -58,10 +58,14 @@ export function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button size="lg" className="gap-2">
+                <Button 
+                size="lg" 
+                className="gap-2" 
+                onClick={() => window.open('https://res.cloudinary.com/db1nsxnit/image/upload/v1745254364/Prathamesh_Mishra_wfspfq.pdf', '_blank')}
+                >
                 <Download size={18} />
                 Download Resume
-              </Button>
+                </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
