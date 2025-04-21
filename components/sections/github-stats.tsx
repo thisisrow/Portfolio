@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Github, Code, GitBranch, BookMarked } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { githubData } from '@/lib/data';
 import { cn } from '@/lib/utils';
@@ -97,13 +96,17 @@ export function GithubStats() {
                       <span>{lang.name}</span>
                       <span className="text-muted-foreground">{lang.percentage}%</span>
                     </div>
-                    <Progress 
-                      value={lang.percentage} 
-                      className="h-2"
-                      style={{ 
-                        "--progress-color": lang.color 
-                      } as React.CSSProperties}
-                    />
+                    <div 
+                      className="h-2 w-full bg-secondary rounded-full overflow-hidden"
+                    >
+                      <div 
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{ 
+                          width: `${lang.percentage}%`,
+                          backgroundColor: lang.color
+                        }}
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -132,7 +135,14 @@ export function GithubStats() {
                         </span>
                         <span className="text-muted-foreground">{lang.proficiency}%</span>
                       </div>
-                      <Progress value={lang.proficiency} className="h-2" />
+                      <div 
+                        className="h-2 w-full bg-secondary rounded-full overflow-hidden"
+                      >
+                        <div 
+                          className="h-full bg-primary rounded-full transition-all duration-500"
+                          style={{ width: `${lang.proficiency}%` }}
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
