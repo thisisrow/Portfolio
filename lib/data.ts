@@ -109,10 +109,11 @@ export const projects: Project[] = [
 
 export const githubData: GitHubData = {
   topLanguages: [
-    { name: "JavaScript", percentage: 40, color: "#f1e05a" },
-    { name: "TypeScript", percentage: 25, color: "#2b7489" },
-    { name: "HTML", percentage: 15, color: "#e34c26" },
-    { name: "CSS", percentage: 12, color: "#563d7c" },
+    { name: "JavaScript", percentage: 59.79, color: "#f1e05a" },
+    { name: "TypeScript", percentage:21.49, color: "#2b7489" },
+    { name: "HTML", percentage: 2.35, color: "#e34c26" },
+    { name: "CSS", percentage: 8.42, color: "#563d7c" },
+    {name:"Java", percentage: 7.95, color: "#b07219"},
   ],
   totalCommits: 288,
   totalRepos: 27,
@@ -124,7 +125,8 @@ export const githubData: GitHubData = {
     { name: "TypeScript", icon: "ts", proficiency: 70 },
     { name: "React", icon: "react", proficiency: 90 },
     { name: "Node.js", icon: "node", proficiency: 80 },
-    { name: "HTML/CSS", icon: "html", proficiency: 90 }
+    { name: "HTML/CSS", icon: "html", proficiency: 90 },
+    {name :"Next.js" , icon: "next", proficiency: 60},
   ],
   learning: ["Python"]
 };

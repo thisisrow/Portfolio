@@ -88,6 +88,7 @@ export function GithubStats() {
                 Language Distribution
               </CardTitle>
             </CardHeader>
+           
             <CardContent>
               <div className="space-y-4">
                 {githubData.topLanguages.map((lang, index) => (
@@ -111,6 +112,13 @@ export function GithubStats() {
                 ))}
               </div>
             </CardContent>
+            <div className="flex justify-center">
+              <img 
+              className="rounded-lg shadow-md"
+              src="https://github-readme-stats.vercel.app/api/top-langs/?username=thisisrow&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact" 
+              alt="Top Languages" 
+              />
+            </div>
           </Card>
 
           <div className={cn(
