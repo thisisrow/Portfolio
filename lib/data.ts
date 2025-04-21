@@ -70,31 +70,29 @@ export const githubData: GitHubData = {
     { name: "TypeScript", percentage: 25, color: "#2b7489" },
     { name: "HTML", percentage: 15, color: "#e34c26" },
     { name: "CSS", percentage: 12, color: "#563d7c" },
-    { name: "Python", percentage: 8, color: "#3572A5" }
   ],
-  totalCommits: 1248,
-  totalRepos: 32,
+  totalCommits: 288,
+  totalRepos: 27,
   topTechnologies: [
-    "React", "Next.js", "Node.js", "Express", "MongoDB", "PostgreSQL", 
-    "Redux", "Tailwind CSS", "GraphQL", "Firebase"
+    "React", "Next.js","React Native", "Node.js", "Express", "MongoDB", "MySQL","PostgreSQL", "Tailwind CSS", "Bootstrap","RESTful API", "Redux","Axios",
   ],
   frequentlyUsedLanguages: [
-    { name: "JavaScript", icon: "js", proficiency: 95 },
-    { name: "TypeScript", icon: "ts", proficiency: 90 },
-    { name: "React", icon: "react", proficiency: 92 },
-    { name: "Node.js", icon: "node", proficiency: 88 },
+    { name: "JavaScript", icon: "js", proficiency: 85 },
+    { name: "TypeScript", icon: "ts", proficiency: 70 },
+    { name: "React", icon: "react", proficiency: 90 },
+    { name: "Node.js", icon: "node", proficiency: 80 },
     { name: "HTML/CSS", icon: "html", proficiency: 90 }
   ],
-  learning: ["Rust", "Go", "WebAssembly", "Three.js", "Machine Learning"]
+  learning: ["Python"]
 };
 
 export const contactInfo = {
-  email: "john.doe@example.com",
-  phone: "+1 (555) 123-4567",
-  location: "San Francisco, CA",
+  email: "prathameshmishra2020@gmail.com",
+  phone: "+91 8010710484",
+  location: "Virar East - Mumbai, Maharashtra, India",
   socialLinks: {
-    github: "https://github.com/johndoe",
-    linkedin: "https://linkedin.com/in/johndoe",
-    twitter: "https://twitter.com/johndoe"
+    github: "https://github.com/thisisrow",
+    linkedin: "www.linkedin.com/in/prathamesh-mishra-a83357260",
+    twitter: "https://x.com/Prathamesh22341?t=Iww-kVGIUWPVi6jZFcAi-A&s=08 "
   }
 };

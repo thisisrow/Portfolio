@@ -12,7 +12,7 @@ export function Footer() {
               className="text-lg font-bold tracking-tighter hover:opacity-80 transition-opacity"
             >
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
-                John Doe
+                Prathamesh Mishra
               </span>
             </Link>
             <p className="text-muted-foreground text-sm mt-1">
@@ -22,7 +22,7 @@ export function Footer() {
           
           <div className="flex items-center text-sm text-muted-foreground">
             <p>
-              © {new Date().getFullYear()} John Doe. All rights reserved.
+              © {new Date().getFullYear()} Prathamesh Mishra. All rights reserved.
             </p>
             <span className="mx-2">•</span>
             <p className="flex items-center gap-1">

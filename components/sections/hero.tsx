@@ -45,7 +45,7 @@ export function Hero() {
             <div className="space-y-2">
               <h2 className="text-xl text-primary font-medium">Hello, I'm</h2>
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-                John Doe
+                Prathamesh Mishra
               </h1>
               <p className="text-2xl md:text-3xl text-muted-foreground font-light">
                 Full Stack Developer
@@ -54,7 +54,7 @@ export function Hero() {
 
             <p className="text-lg text-muted-foreground max-w-lg">
               I build exceptional digital experiences with modern technologies.
-              Specializing in React, Next.js, Node.js, and more.
+              Specializing in React, Next.js, Node.js, Express.js and more.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
@@ -81,7 +81,7 @@ export function Hero() {
             )}
           >
             <Image
-              src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
+              src="https://res.cloudinary.com/db1nsxnit/image/upload/v1743251988/profilel_zqa4ac.png"
               alt="John Doe"
               width={500}
               height={500}

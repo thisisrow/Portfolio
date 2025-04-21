@@ -44,7 +44,7 @@ export function Navbar() {
           className="text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity"
         >
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
-            John Doe
+            Prathamesh Mishra
           </span>
         </Link>
 
