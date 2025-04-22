@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import LetterGlitch from '../letter-glitch';
+import RotatingText from '../RotatingText';
 
 export function Hero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -23,7 +24,6 @@ export function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden">
-      {/* LetterGlitch Background */}
       <div className="absolute inset-0 -z-10">
         <LetterGlitch
           glitchColors={["#2b4539", "#61dca3", "#61b3dc"]}
@@ -47,9 +47,21 @@ export function Hero() {
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
                 Prathamesh Mishra
               </h1>
-              <p className="text-2xl md:text-3xl text-muted-foreground font-light">
-                Full Stack Developer
-              </p>
+              <div className="flex items-center gap-2 text-2xl md:text-3xl text-muted-foreground font-light">
+                <span>A</span>
+                <RotatingText
+                  texts={['Full Stack Developer','MERN Stack', 'Frontend Developer', 'Backend Developer', 'UI/UX Designer']}
+                  mainClassName="px-2 sm:px-2 md:px-3 bg-primary/10 text-primary overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+                  staggerFrom="last"
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "-120%" }}
+                  staggerDuration={0.025}
+                  splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                  rotationInterval={3000}
+                />
+              </div>
             </div>
 
             <p className="text-lg text-muted-foreground max-w-lg">
@@ -58,14 +70,14 @@ export function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
-                <Button 
+              <Button 
                 size="lg" 
                 className="gap-2" 
                 onClick={() => window.open('https://res.cloudinary.com/db1nsxnit/image/upload/v1745254364/Prathamesh_Mishra_wfspfq.pdf', '_blank')}
-                >
+              >
                 <Download size={18} />
                 Download Resume
-                </Button>
+              </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
