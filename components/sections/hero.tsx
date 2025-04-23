@@ -1,123 +1,239 @@
 'use client';
 
-import { ArrowDown, Download } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
+import { Github, Code, GitBranch, BookMarked } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { githubData } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
-import LetterGlitch from '../letter-glitch';
-import RotatingText from '../RotatingText';
 
-export function Hero() {
+export function GithubStats() {
   const [isVisible, setIsVisible] = useState(false);
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    const section = document.getElementById('github');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
-  const scrollToProjects = () => {
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: 'smooth' });
+  useEffect(() => {
+    if (isVisible) {
+      setAnimate(true);
     }
-  };
+  }, [isVisible]);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden">
-      <div className="absolute inset-0 -z-10">
-        <LetterGlitch
-          glitchColors={["#2b4539", "#61dca3", "#61b3dc"]}
-          glitchSpeed={50}
-          centerVignette={false}
-          outerVignette={true}
-          smooth={true}
-        />
-        <div className="absolute inset-0 bg-background/80 " />
-      </div>
-
-      <div className="container px-4 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div 
-            className={cn(
-              "space-y-6 transform transition-all duration-700 ease-out"
-            )}
-          >
-            <div className="space-y-2">
-              <h2 className="text-xl text-primary font-medium">Hello, I'm</h2>
-              <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-                Prathamesh Mishra
-              </h1>
-              <div className="flex items-center gap-2 text-2xl md:text-3xl text-muted-foreground font-light">
-                <span>A</span>
-                <RotatingText
-                  texts={['Full Stack Developer','MERN Stack', 'Frontend Developer', 'Backend Developer', 'UI/UX Designer']}
-                  mainClassName="px-2 sm:px-2 md:px-3 bg-primary/10 text-primary overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
-                  staggerFrom="last"
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  exit={{ y: "-120%" }}
-                  staggerDuration={0.025}
-                  splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                  rotationInterval={3000}
-                />
-              </div>
-            </div>
-
-            <p className="text-lg text-muted-foreground max-w-lg">
-              I build exceptional digital experiences with modern technologies.
-              Specializing in React, Next.js, Node.js, Express.js and more.
-            </p>
-
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Button 
-                size="lg" 
-                className="gap-2" 
-                onClick={() => window.open('https://res.cloudinary.com/db1nsxnit/image/upload/v1745254364/Prathamesh_Mishra_wfspfq.pdf', '_blank')}
-              >
-                <Download size={18} />
-                Download Resume
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                onClick={scrollToProjects}
-                className="gap-2"
-              >
-                View Projects
-                <ArrowDown size={18} />
-              </Button>
-            </div>
-          </div>
-
-          <div 
-            className={cn(
-              "relative transform transition-all duration-700 delay-300 ease-out h-[500px] w-full max-w-md mx-auto lg:mx-0 lg:ml-auto",
-              isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-            )}
-          >
-            <Image
-              src="https://res.cloudinary.com/db1nsxnit/image/upload/v1745429812/profilel_zqa4ac.png"
-              alt="Prathamesh Mishra"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
+    <section id="github" className="py-20 min-h-[100svh]">
+      <div className="container px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">GitHub Stats</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            A glimpse into my coding activity and technology expertise based on my GitHub profile.
+          </p>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={scrollToProjects}
-            className="h-10 w-10 rounded-full"
-            aria-label="Scroll down"
-          >
-            <ArrowDown size={20} />
-          </Button>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <StatsCard 
+            icon={<Github className="h-8 w-8" />}
+            title="Repositories"
+            value={githubData.totalRepos.toString()}
+            animate={animate}
+            delay={0}
+          />
+          <StatsCard 
+            icon={<Code className="h-8 w-8" />}
+            title="Languages"
+            value={githubData.topLanguages.length.toString()}
+            animate={animate}
+            delay={100}
+          />
+          <StatsCard 
+            icon={<GitBranch className="h-8 w-8" />}
+            title="Commits"
+            value={githubData.totalCommits.toString()}
+            animate={animate}
+            delay={200}
+          />
+          <StatsCard 
+            icon={<BookMarked className="h-8 w-8" />}
+            title="Tech Stack"
+            value={githubData.topTechnologies.length.toString()}
+            animate={animate}
+            delay={300}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <Card className={cn(
+            "transform transition-all duration-700",
+            animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          )}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Code className="h-5 w-5" />
+                Language Distribution
+              </CardTitle>
+            </CardHeader>
+           
+            <CardContent>
+              <div className="space-y-4">
+                {githubData.topLanguages.map((lang, index) => (
+                  <div key={lang.name} className="space-y-1">
+                    <div className="flex justify-between text-sm">
+                      <span>{lang.name}</span>
+                      <span className="text-muted-foreground">{lang.percentage}%</span>
+                    </div>
+                    <div 
+                      className="h-2 w-full bg-secondary rounded-full overflow-hidden"
+                    >
+                      <div 
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{ 
+                          width: `${lang.percentage}%`,
+                          backgroundColor: lang.color
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+            <div className="flex justify-center">
+              <img 
+              className="rounded-lg shadow-md"
+              src="https://github-readme-stats.vercel.app/api/top-langs/?username=thisisrow&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact" 
+              alt="Top Languages" 
+              />
+            </div>
+          </Card>
+
+          <div className={cn(
+            "space-y-8 transform transition-all duration-700 delay-200",
+            animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          )}>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <GitBranch className="h-5 w-5" />
+                  Frequently Used Technologies
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {githubData.frequentlyUsedLanguages.map((lang) => (
+                    <div key={lang.name} className="space-y-1">
+                      <div className="flex justify-between text-sm">
+                        <span className="flex items-center gap-2">
+                          <span className={`language-icon ${lang.icon}`}>{getLanguageIcon(lang.icon)}</span>
+                          {lang.name}
+                        </span>
+                        <span className="text-muted-foreground">{lang.proficiency}%</span>
+                      </div>
+                      <div 
+                        className="h-2 w-full bg-secondary rounded-full overflow-hidden"
+                      >
+                        <div 
+                          className="h-full bg-primary rounded-full transition-all duration-500"
+                          style={{ width: `${lang.proficiency}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BookMarked className="h-5 w-5" />
+                  Tech Stack
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {githubData.topTechnologies.map((tech) => (
+                    <Badge key={tech} variant="secondary">{tech}</Badge>
+                  ))}
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-sm font-semibold mb-2">Currently Learning</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {githubData.learning.map((tech) => (
+                      <Badge key={tech} variant="outline">{tech}</Badge>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </section>
   );
+}
+
+function StatsCard({ 
+  icon, 
+  title, 
+  value, 
+  animate, 
+  delay = 0 
+}: { 
+  icon: React.ReactNode; 
+  title: string; 
+  value: string; 
+  animate: boolean;
+  delay?: number;
+}) {
+  return (
+    <Card className={cn(
+      "transform transition-all duration-500",
+      animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+    )}
+    style={{ transitionDelay: `${delay}ms` }}
+    >
+      <CardContent className="p-6 flex items-center justify-between">
+        <div>
+          <p className="text-sm text-muted-foreground">{title}</p>
+          <h3 className="text-3xl font-bold mt-1">{value}</h3>
+        </div>
+        <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+          {icon}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function getLanguageIcon(icon: string) {
+  switch (icon) {
+    case 'js':
+      return 'JS';
+    case 'ts':
+      return 'TS';
+    case 'react':
+      return 'R';
+    case 'node':
+      return 'N';
+    case 'html':
+      return 'H';
+    default:
+      return icon.slice(0, 1).toUpperCase();
+  }
 }
