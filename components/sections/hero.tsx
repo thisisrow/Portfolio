@@ -97,7 +97,7 @@ export function Hero() {
             )}
           >
             <Image
-              src="https://res.cloudinary.com/db1nsxnit/image/upload/v1743251988/profilel_zqa4ac.png"
+              src="https://res.cloudinary.com/db1nsxnit/image/upload/v1745429812/profilel_zqa4ac.png"
               alt="Prathamesh Mishra"
               width={500}
               height={500}
