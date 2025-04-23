@@ -92,19 +92,17 @@ export function Hero() {
 
           <div 
             className={cn(
-              "relative transform transition-all duration-700 delay-300 ease-out rounded-3xl overflow-hidden aspect-square max-w-md mx-auto lg:mx-0 lg:ml-auto",
+              "relative transform transition-all duration-700 delay-300 ease-out h-[500px] w-full max-w-md mx-auto lg:mx-0 lg:ml-auto",
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             )}
           >
             <Image
               src="https://res.cloudinary.com/db1nsxnit/image/upload/v1745429812/profilel_zqa4ac.png"
               alt="Prathamesh Mishra"
-              width={500}
-              height={500}
-              className="w-full h-full object-cover rounded-3xl"
+              fill
+              className="object-contain"
               priority
             />
-            <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10"></div>
           </div>
         </div>
 
