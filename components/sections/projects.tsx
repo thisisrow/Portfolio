@@ -113,13 +113,13 @@ export function Projects() {
             ))}
           </div>
           
-          <div className="absolute -right-4 top-1/2 -translate-y-1/2 hidden md:block">
+          <div className="absolute -right-4 top-1/2 -translate-y-1/2 hidden">
             <Button variant="outline" size="icon" onClick={() => scrollToProject('right')} aria-label="Scroll right">
               <ArrowRight size={20} />
             </Button>
           </div>
           
-          <div className="absolute -left-4 top-1/2 -translate-y-1/2 hidden md:block">
+          <div className="absolute -left-4 top-1/2 -translate-y-1/2 hidden">
             <Button variant="outline" size="icon" onClick={() => scrollToProject('left')} aria-label="Scroll left">
               <ArrowLeft size={20} />
             </Button>
