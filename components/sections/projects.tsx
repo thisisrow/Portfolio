@@ -76,6 +76,7 @@ export function Projects() {
             {projects.map((project) => (
               <Card 
                 key={project.id}
+                onClick={() => window.open(project.liveUrl, '_blank')}
                 className={cn(
                   "flex-shrink-0 w-full md:w-[500px] snap-center hover:shadow-lg transition-all duration-300 overflow-hidden transform hover:-translate-y-1",
                   activeProject === project.id ? "ring-2 ring-primary" : ""
