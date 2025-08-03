@@ -66,9 +66,9 @@ export function Projects() {
           </p>
         </div>
 
-        <div className="relative">
+        <div className="relative max-w-6xl mx-auto">
           <div 
-            className="flex space-x-6 py-8 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+            className="flex space-x-6 py-8 overflow-x-auto scrollbar-hide snap-x snap-mandatory px-4"
             ref={containerRef}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -78,7 +78,7 @@ export function Projects() {
                 key={project.id}
                 onClick={() => window.open(project.liveUrl, '_blank')}
                 className={cn(
-                  "flex-shrink-0 w-full md:w-[500px] snap-center hover:shadow-lg transition-all duration-300 overflow-hidden transform hover:-translate-y-1",
+                  "flex-shrink-0 w-[320px] md:w-[400px] lg:w-[450px] snap-center hover:shadow-lg transition-all duration-300 overflow-hidden transform hover:-translate-y-1",
                   activeProject === project.id ? "ring-2 ring-primary" : ""
                 )}
               >
@@ -131,28 +131,40 @@ export function Projects() {
             ))}
           </div>
           
-          <div className="absolute -right-4 top-1/2 -translate-y-1/2 block">
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
             <Button 
-              variant="outline" 
+              variant="secondary" 
               size="icon" 
               onClick={() => scrollToProject('right')} 
               aria-label="Scroll right"
               onMouseEnter={handleMouseEnter}
+              className="shadow-lg"
             >
               <ArrowRight size={20} />
             </Button>
           </div>
           
-          <div className="absolute -left-4 top-1/2 -translate-y-1/2 block">
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
             <Button 
-              variant="outline" 
+              variant="secondary" 
               size="icon" 
               onClick={() => scrollToProject('left')} 
               aria-label="Scroll left"
               onMouseEnter={handleMouseEnter}
+              className="shadow-lg"
             >
               <ArrowLeft size={20} />
             </Button>
+          </div>
+          
+          {/* Scroll indicators */}
+          <div className="flex justify-center mt-6 space-x-2">
+            {projects.map((_, index) => (
+              <div
+                key={index}
+                className="w-2 h-2 rounded-full bg-muted-foreground/30 transition-colors"
+              />
+            ))}
           </div>
         </div>
       </div>
