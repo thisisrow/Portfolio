@@ -8,9 +8,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { contactInfo } from '@/lib/data';
 import { toast } from 'sonner';
+import React from 'react';
+import { useForm, ValidationError } from '@formspree/react';
 
 export function Contact() {
   const [isVisible, setIsVisible] = useState(false);
+  const [state, handleSubmit] = useForm("movlkkko");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,11 +33,6 @@ export function Contact() {
 
     return () => observer.disconnect();
   }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast.success('Message sent successfully! I will get back to you soon.');
-  };
 
   return (
     <section id="contact" className="py-20 bg-muted/30">
@@ -120,46 +118,47 @@ export function Contact() {
             )}
           >
             <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium">
-                    Name
-                  </label>
-                  <Input id="name" placeholder="Your name" required />
-                </div>
+            {state.succeeded ? (
+              <p className="text-green-600 font-semibold text-center">Thanks for joining!</p>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium">
-                    Email
+                    Email Address
                   </label>
-                  <Input id="email" type="email" placeholder="Your email" required />
+                  <Input
+                    id="email"
+                    type="email"
+                    name="email"
+                    required
+                  />
+                  <ValidationError 
+                    prefix="Email" 
+                    field="email"
+                    errors={state.errors}
+                  />
                 </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="subject" className="text-sm font-medium">
-                  Subject
-                </label>
-                <Input id="subject" placeholder="Subject of your message" required />
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium">
-                  Message
-                </label>
-                <Textarea 
-                  id="message" 
-                  placeholder="Your message" 
-                  rows={5} 
-                  required 
-                />
-              </div>
-              
-              <Button type="submit" className="w-full">
-                Send Message
-              </Button>
-            </form>
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-sm font-medium">
+                    Message
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    required
+                  />
+                  <ValidationError 
+                    prefix="Message" 
+                    field="message"
+                    errors={state.errors}
+                  />
+                </div>
+                <Button type="submit" className="w-full" disabled={state.submitting}>
+                  {state.submitting ? 'Sending...' : 'Send Message'}
+                </Button>
+              </form>
+            )}
           </div>
         </div>
       </div>
