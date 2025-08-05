@@ -73,7 +73,7 @@ export function Hero() {
               <Button 
                 size="lg" 
                 className="gap-2" 
-                onClick={() => window.open('https://res.cloudinary.com/db1nsxnit/image/upload/v1745254364/Prathamesh_Mishra_wfspfq.pdf', '_blank')}
+                onClick={() => window.open('https://res.cloudinary.com/db1nsxnit/image/upload/v1754419390/Prathamesh_Mishra_p3xovo.pdf', '_blank')}
               >
                 <Download size={18} />
                 Download Resume
