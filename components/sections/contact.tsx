@@ -119,7 +119,7 @@ export function Contact() {
           >
             <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
             {state.succeeded ? (
-              <p className="text-green-600 font-semibold text-center">Thanks for joining!</p>
+              <p className="text-green-600 font-semibold text-center">Thanks !</p>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
