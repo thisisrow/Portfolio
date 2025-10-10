@@ -109,14 +109,14 @@ export const projects: Project[] = [
 
 export const githubData: GitHubData = {
   topLanguages: [
-    { name: "JavaScript", percentage: 59.79, color: "#f1e05a" },
-    { name: "TypeScript", percentage:21.49, color: "#2b7489" },
-    { name: "HTML", percentage: 2.35, color: "#e34c26" },
-    { name: "CSS", percentage: 8.42, color: "#563d7c" },
-    {name:"Java", percentage: 7.95, color: "#b07219"},
+    { name: "JavaScript", percentage: 48, color: "#f1e05a" },
+    { name: "TypeScript", percentage:37, color: "#2b7489" },
+    { name: "HTML", percentage: 2, color: "#e34c26" },
+    { name: "CSS", percentage: 6, color: "#563d7c" },
+    {name:"Java", percentage: 5, color: "#b07219"},
   ],
-  totalCommits: 288,
-  totalRepos: 27,
+  totalCommits: 572,
+  totalRepos: 54,
   topTechnologies: [
     "React", "Next.js","React Native", "Node.js", "Express", "MongoDB", "MySQL","PostgreSQL", "Tailwind CSS", "Bootstrap","RESTful API", "Redux","Axios",
   ],
@@ -137,7 +137,7 @@ export const contactInfo = {
   location: "Virar East - Mumbai, Maharashtra, India",
   socialLinks: {
     github: "https://github.com/thisisrow",
-    linkedin: "www.linkedin.com/in/prathamesh-mishra-a83357260",
+    linkedin: "https://www.linkedin.com/in/prathamesh-mishra-a83357260",
     twitter: "https://x.com/Prathamesh22341?t=Iww-kVGIUWPVi6jZFcAi-A&s=08 "
   }
 };

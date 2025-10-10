@@ -73,7 +73,7 @@ export function Hero() {
               <Button 
                 size="lg" 
                 className="gap-2" 
-                onClick={() => window.open('https://res.cloudinary.com/db1nsxnit/image/upload/v1754419390/Prathamesh_Mishra_p3xovo.pdf', '_blank')}
+                onClick={() => window.open('/Prathamesh.pdf', '_blank')}
               >
                 <Download size={18} />
                 Download Resume
@@ -97,7 +97,7 @@ export function Hero() {
             )}
           >
             <Image
-              src="https://res.cloudinary.com/db1nsxnit/image/upload/v1745429812/profilel_zqa4ac.png"
+              src="/profile.png"
               alt="Prathamesh Mishra"
               fill
               className="object-contain"
