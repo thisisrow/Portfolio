@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { githubData } from '@/lib/data';
 import { cn } from '@/lib/utils';
+import AuroraBackground from '@/components/aurora-background';
 
 export function GithubStats() {
   const [isVisible, setIsVisible] = useState(false);
@@ -37,8 +38,14 @@ export function GithubStats() {
   }, [isVisible]);
 
   return (
-    <section id="github" className="py-20">
-      <div className="container px-4 mx-auto">
+    <section id="github" className="py-20 relative overflow-hidden">
+      <AuroraBackground
+        colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+        blend={0.5}
+        amplitude={1.0}
+        speed={0.5}
+      />
+      <div className="container px-4 mx-auto relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">GitHub Stats</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
