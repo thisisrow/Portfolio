@@ -97,7 +97,7 @@ export function Hero() {
             )}
           >
             <Image
-              src="/profile.webp"
+              src="/profil.png"
               alt="Prathamesh Mishra"
               fill
               className="object-contain"
