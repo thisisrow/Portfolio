@@ -43,7 +43,7 @@ export function Hero() {
             )}
           >
             <div className="space-y-2">
-              <h2 className="text-xl text-primary font-medium">Hello, I'm</h2>
+              <h2 className="text-xl text-primary font-medium">Hello, I&apos;m</h2>
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
                 Prathamesh Mishra
               </h1>

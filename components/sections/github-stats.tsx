@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import GlassSurface from '@/components/ui/GlassSurface';
 import '@/components/ui/GlassSurface.css';
 import Silk from '@/components/ui/Silk';
+import Image from 'next/image';
 
 export function GithubStats() {
   const [isVisible, setIsVisible] = useState(false);
@@ -123,10 +124,12 @@ export function GithubStats() {
                 ))}
               </div>
               <div className="flex justify-center mt-4">
-                <img 
+                <Image 
                 className="rounded-lg shadow-md"
                 src="https://github-readme-stats.vercel.app/api/top-langs/?username=thisisrow&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact" 
                 alt="Top Languages" 
+                width={400}
+                height={200}
                 />
               </div>
             </div>

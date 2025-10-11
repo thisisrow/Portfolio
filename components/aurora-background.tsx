@@ -207,7 +207,7 @@ export default function AuroraBackground({
       }
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, []);
+  }, [amplitude, blend, colorStops]);
 
   return (
     <div

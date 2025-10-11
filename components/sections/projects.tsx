@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { ArrowLeft, ArrowRight, ExternalLink, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,14 +15,14 @@ export function Projects() {
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
   const autoScrollIntervalRef = useRef<NodeJS.Timeout>();
 
-  const scrollToProject = (direction: 'left' | 'right') => {
+  const scrollToProject = useCallback((direction: 'left' | 'right') => {
     if (!containerRef.current) return;
     
     const scrollAmount = direction === 'left' ? -400 : 400;
     containerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  };
+  }, []);
 
-  const autoScroll = () => {
+  const autoScroll = useCallback(() => {
     if (!containerRef.current) return;
 
     const container = containerRef.current;
@@ -33,7 +33,7 @@ export function Projects() {
     } else {
       scrollToProject('right');
     }
-  };
+  }, [scrollToProject]);
 
   useEffect(() => {
     if (isAutoScrolling) {
@@ -45,7 +45,7 @@ export function Projects() {
         clearInterval(autoScrollIntervalRef.current);
       }
     };
-  }, [isAutoScrolling]);
+  }, [isAutoScrolling, autoScroll]);
 
   const handleMouseEnter = () => {
     setIsAutoScrolling(false);
