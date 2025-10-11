@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useId, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useId, useCallback } from 'react';
 
 import './GlassSurface.css';
 
+// ... (The GlassSurfaceProps interface remains the same)
 export interface GlassSurfaceProps {
   children?: React.ReactNode;
   width?: number | string;
@@ -43,6 +44,7 @@ export interface GlassSurfaceProps {
   style?: React.CSSProperties;
 }
 
+
 const GlassSurface: React.FC<GlassSurfaceProps> = ({
   children,
   width,
@@ -76,6 +78,33 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
   const greenChannelRef = useRef<SVGFEDisplacementMapElement>(null);
   const blueChannelRef = useRef<SVGFEDisplacementMapElement>(null);
   const gaussianBlurRef = useRef<SVGFEGaussianBlurElement>(null);
+  
+  // **FIX STARTS HERE**
+  // 1. Add state to manage the dynamic class. Initialize with the fallback.
+  const [surfaceClass, setSurfaceClass] = useState('glass-surface--fallback');
+  
+  const supportsSVGFilters = useCallback(() => {
+    // This function can now be a useCallback since it doesn't depend on component props directly
+    if (typeof window === 'undefined') return false;
+    const isWebkit = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+    const isFirefox = /Firefox/.test(navigator.userAgent);
+
+    if (isWebkit || isFirefox) {
+      return false;
+    }
+
+    const div = document.createElement('div');
+    div.style.backdropFilter = `url(#${filterId})`;
+    return div.style.backdropFilter !== '';
+  }, [filterId]);
+
+  // 2. Use useEffect to check for support only on the client, after hydration.
+  useEffect(() => {
+    if (supportsSVGFilters()) {
+      setSurfaceClass('glass-surface--svg');
+    }
+  }, [supportsSVGFilters]);
+  // **FIX ENDS HERE**
 
   const generateDisplacementMap = useCallback(() => {
     const rect = containerRef.current?.getBoundingClientRect();
@@ -161,20 +190,6 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     setTimeout(updateDisplacementMap, 0);
   }, [width, height, updateDisplacementMap]);
 
-  const supportsSVGFilters = () => {
-    if (typeof window === 'undefined') return false;
-    const isWebkit = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
-    const isFirefox = /Firefox/.test(navigator.userAgent);
-
-    if (isWebkit || isFirefox) {
-      return false;
-    }
-
-    const div = document.createElement('div');
-    div.style.backdropFilter = `url(#${filterId})`;
-    return div.style.backdropFilter !== '';
-  };
-
   const containerStyle: React.CSSProperties = {
     ...style,
     width: typeof width === 'number' ? `${width}px` : width,
@@ -188,7 +203,8 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`glass-surface ${supportsSVGFilters() ? 'glass-surface--svg' : 'glass-surface--fallback'} ${className}`}
+      // 3. Use the state variable to set the class
+      className={`glass-surface ${surfaceClass} ${className}`}
       style={containerStyle}
     >
       <svg className="glass-surface__filter" xmlns="http://www.w3.org/2000/svg">

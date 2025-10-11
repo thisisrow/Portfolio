@@ -142,6 +142,7 @@ export function Contact() {
                       type="email"
                       name="email"
                       required
+                      autoComplete="email"
                     />
                     <ValidationError 
                       prefix="Email" 

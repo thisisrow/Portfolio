@@ -44,13 +44,14 @@ export function GithubStats() {
     <section id="github" className="py-20 relative">
       <div className="absolute top-0 left-0 w-full h-full">
         <Silk
-  speed={5}
-  scale={1}
-  color="#5227FF"
-  noiseIntensity={0.2}
-  rotation={0}
-/>
+          speed={5}
+          scale={1}
+          color="#5227FF"
+          noiseIntensity={0.2}
+          rotation={0}
+        />
       </div>
+
       <div className="container px-4 mx-auto relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">GitHub Stats</h2>
@@ -102,20 +103,19 @@ export function GithubStats() {
                 <Code className="h-5 w-5" />
                 <h3 className="text-lg font-semibold">Language Distribution</h3>
               </div>
+
               <div className="mt-4 space-y-4">
                 {githubData.topLanguages.map((lang, index) => (
                   <div key={lang.name} className="space-y-1">
                     <div className="flex justify-between text-sm">
                       <span>{lang.name}</span>
-                      <span className="text-muted-foreground">{lang.percentage}%</span>
+                      <span className="text-muted-foreground">{lang.percentage ?? 0}%</span>
                     </div>
-                    <div 
-                      className="h-2 w-full bg-secondary rounded-full overflow-hidden"
-                    >
+                    <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
                       <div 
                         className="h-full rounded-full transition-all duration-500"
                         style={{ 
-                          width: `${lang.percentage}%`,
+                          width: `${lang.percentage ?? 0}%`,
                           backgroundColor: lang.color
                         }}
                       />
@@ -123,14 +123,18 @@ export function GithubStats() {
                   </div>
                 ))}
               </div>
-              <div className="flex justify-center mt-4">
-                <Image 
-                className="rounded-lg shadow-md"
-                src="https://github-readme-stats.vercel.app/api/top-langs/?username=thisisrow&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact" 
-                alt="Top Languages" 
-                width={400}
-                height={200}
-                />
+
+              <div className="mt-4 flex justify-center">
+                <div className="relative w-full max-w-md h-48">
+                  <Image
+                    className="rounded-lg shadow-md"
+                    src="https://github-readme-stats.vercel.app/api/top-langs/?username=thisisrow&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact"
+                    alt="Top Languages"
+                    fill
+                    style={{ objectFit: 'contain' }}
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </GlassSurface>
@@ -155,14 +159,12 @@ export function GithubStats() {
                           <span className={`language-icon ${lang.icon}`}>{getLanguageIcon(lang.icon)}</span>
                           {lang.name}
                         </span>
-                        <span className="text-muted-foreground">{lang.proficiency}%</span>
+                        <span className="text-muted-foreground">{lang.proficiency ?? 0}%</span>
                       </div>
-                      <div 
-                        className="h-2 w-full bg-secondary rounded-full overflow-hidden"
-                      >
+                      <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
                         <div 
                           className="h-full bg-primary rounded-full transition-all duration-500"
-                          style={{ width: `${lang.proficiency}%` }}
+                          style={{ width: `${lang.proficiency ?? 0}%` }}
                         />
                       </div>
                     </div>
