@@ -6,7 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { githubData } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import AuroraBackground from '@/components/aurora-background';
+import GlassSurface from '@/components/ui/GlassSurface';
+import '@/components/ui/GlassSurface.css';
+import Silk from '@/components/ui/Silk';
 
 export function GithubStats() {
   const [isVisible, setIsVisible] = useState(false);
@@ -38,13 +40,16 @@ export function GithubStats() {
   }, [isVisible]);
 
   return (
-    <section id="github" className="py-20 relative overflow-hidden">
-      <AuroraBackground
-        colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
-        blend={0.5}
-        amplitude={1.0}
-        speed={0.5}
-      />
+    <section id="github" className="py-20 relative">
+      <div className="absolute top-0 left-0 w-full h-full">
+        <Silk
+  speed={5}
+  scale={1}
+  color="#5227FF"
+  noiseIntensity={0.2}
+  rotation={0}
+/>
+      </div>
       <div className="container px-4 mx-auto relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">GitHub Stats</h2>
@@ -85,19 +90,18 @@ export function GithubStats() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <Card className={cn(
-            "transform transition-all duration-700",
-            animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          )}>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+          <GlassSurface
+            className={cn(
+              "transform transition-all duration-700",
+              animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+            )}
+          >
+            <div className="p-6 w-full">
+              <div className="flex items-center gap-2">
                 <Code className="h-5 w-5" />
-                Language Distribution
-              </CardTitle>
-            </CardHeader>
-           
-            <CardContent>
-              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Language Distribution</h3>
+              </div>
+              <div className="mt-4 space-y-4">
                 {githubData.topLanguages.map((lang, index) => (
                   <div key={lang.name} className="space-y-1">
                     <div className="flex justify-between text-sm">
@@ -118,29 +122,29 @@ export function GithubStats() {
                   </div>
                 ))}
               </div>
-            </CardContent>
-            <div className="flex justify-center">
-              <img 
-              className="rounded-lg shadow-md"
-              src="https://github-readme-stats.vercel.app/api/top-langs/?username=thisisrow&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact" 
-              alt="Top Languages" 
-              />
+              <div className="flex justify-center mt-4">
+                <img 
+                className="rounded-lg shadow-md"
+                src="https://github-readme-stats.vercel.app/api/top-langs/?username=thisisrow&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact" 
+                alt="Top Languages" 
+                />
+              </div>
             </div>
-          </Card>
+          </GlassSurface>
 
-          <div className={cn(
-            "space-y-8 transform transition-all duration-700 delay-200",
-            animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          )}>
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+          <div className="space-y-8">
+            <GlassSurface
+              className={cn(
+                "transform transition-all duration-700 delay-200",
+                animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              )}
+            >
+              <div className="p-6 w-full">
+                <div className="flex items-center gap-2">
                   <GitBranch className="h-5 w-5" />
-                  Frequently Used Technologies
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Frequently Used Technologies</h3>
+                </div>
+                <div className="mt-4 space-y-4">
                   {githubData.frequentlyUsedLanguages.map((lang) => (
                     <div key={lang.name} className="space-y-1">
                       <div className="flex justify-between text-sm">
@@ -161,18 +165,21 @@ export function GithubStats() {
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </GlassSurface>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+            <GlassSurface
+              className={cn(
+                "transform transition-all duration-700 delay-300",
+                animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              )}
+            >
+              <div className="p-6 w-full">
+                <div className="flex items-center gap-2">
                   <BookMarked className="h-5 w-5" />
-                  Tech Stack
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
+                  <h3 className="text-lg font-semibold">Tech Stack</h3>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
                   {githubData.topTechnologies.map((tech) => (
                     <Badge key={tech} variant="secondary">{tech}</Badge>
                   ))}
@@ -186,8 +193,8 @@ export function GithubStats() {
                     ))}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </GlassSurface>
           </div>
         </div>
       </div>
@@ -209,13 +216,14 @@ function StatsCard({
   delay?: number;
 }) {
   return (
-    <Card className={cn(
-      "transform transition-all duration-500",
-      animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-    )}
-    style={{ transitionDelay: `${delay}ms` }}
+    <GlassSurface
+      className={cn(
+        "transform transition-all duration-500",
+        animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+      )}
+      style={{ transitionDelay: `${delay}ms` }}
     >
-      <CardContent className="p-6 flex items-center justify-between">
+      <div className="p-6 flex items-center justify-between w-full">
         <div>
           <p className="text-sm text-muted-foreground">{title}</p>
           <h3 className="text-3xl font-bold mt-1">{value}</h3>
@@ -223,8 +231,8 @@ function StatsCard({
         <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
           {icon}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </GlassSurface>
   );
 }
 

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Glass Distortion Effect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic setup and background */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        /* This is the main container for our glass card.
+          - It uses custom properties (--filter-id) to link to the SVG filter.
+          - The backdrop-filter property is what applies the complex distortion.
+        */
+        .glass-surface {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 24px; /* Default border radius */
+            transition: opacity 0.26s ease-out;
+            
+            /* Core effect: apply the SVG filter defined below */
+            background: hsla(0, 0%, 100%, 0.05);
+            backdrop-filter: var(--filter-id, url(#glass-filter)) saturate(1.2);
+            -webkit-backdrop-filter: var(--filter-id, url(#glass-filter)) saturate(1.2);
+
+            /* A subtle border and shadow to lift the element */
+            box-shadow: 
+                inset 0 0 2px 1px rgba(255, 255, 255, 0.2),
+                0px 8px 24px rgba(0, 0, 0, 0.1),
+                0px 16px 56px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Fallback for browsers that don't support complex backdrop-filter (like Firefox) */
+        .glass-surface--fallback {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px) saturate(1.2);
+            -webkit-backdrop-filter: blur(12px) saturate(1.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* This SVG element is hidden but crucial. It defines the filter effects. */
+        .glass-surface__filter {
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            opacity: 0; /* It's invisible, only its ID is used */
+            z-index: -1;
+        }
+
+        /* The content container inside the glass card */
+        .glass-surface__content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border-radius: inherit;
+            position: relative;
+            z-index: 1;
+            box-sizing: border-box;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+      This is the glass card element. The JavaScript will target this.
+      The initial width and height are set via style attributes, but the JS will make it responsive.
+    -->
+    <div id="glassCard" class="glass-surface" style="width: 350px; height: 220px;">
+    
+      <!-- The SVG filter definition. This is where the magic happens. -->
+      <svg class="glass-surface__filter" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glass-filter" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%">
+            <!-- feImage generates the displacement map using a data URL from JS -->
+            <feImage id="feImage" x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" />
+            
+            <!-- 
+              feDisplacementMap uses the 'map' to distort the 'SourceGraphic' (the background).
+              We do this for each color channel (R, G, B) with different scales to create chromatic aberration.
+            -->
+            <!-- Red Channel -->
+            <feDisplacementMap id="redChannel" in="SourceGraphic" in2="map" result="dispRed" />
+            <feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="red" />
+            
+            <!-- Green Channel -->
+            <feDisplacementMap id="greenChannel" in="SourceGraphic" in2="map" result="dispGreen" />
+            <feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green" />
+            
+            <!-- Blue Channel -->
+            <feDisplacementMap id="blueChannel" in="SourceGraphic" in2="map" result="dispBlue" />
+            <feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue" />
+            
+            <!-- Blend the color channels back together and apply a final slight blur -->
+            <feBlend in="red" in2="green" mode="screen" result="rg" />
+            <feBlend in="rg" in2="blue" mode="screen" result="output" />
+            <feGaussianBlur id="gaussianBlur" in="output" stdDeviation="0.7" />
+          </filter>
+        </defs>
+      </svg>
+      
+      <!-- Content inside the card -->
+      <div class="glass-surface__content">
+          <h2 style="font-size: 2rem; font-weight: 700; margin: 0 0 0.5rem;">Distortion</h2>
+          <p style="font-size: 1rem; opacity: 0.8; margin: 0;">This effect uses SVG filters for a refractive glass look.</p>
+      </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURATION ---
+            const config = {
+                borderRadius: 24,
+                borderWidth: 0.07,
+                brightness: 50,
+                opacity: 0.93,
+                blur: 11,
+                displace: 15,
+                distortionScale: -150,
+                redOffset: 5,
+                greenOffset: 15,
+                blueOffset: 25,
+            };
+
+            // --- ELEMENT REFERENCES ---
+            const container = document.getElementById('glassCard');
+            const feImage = document.getElementById('feImage');
+            const redChannel = document.getElementById('redChannel');
+            const greenChannel = document.getElementById('greenChannel');
+            const blueChannel = document.getElementById('blueChannel');
+            const gaussianBlur = document.getElementById('gaussianBlur');
+
+            // Function to check if the browser properly supports SVG filters in CSS
+            const supportsSVGFilters = () => {
+                const isFirefox = /Firefox/.test(navigator.userAgent);
+                if (isFirefox) return false; // Firefox has issues with this specific filter type
+
+                const div = document.createElement('div');
+                div.style.backdropFilter = `url(#glass-filter)`;
+                return div.style.backdropFilter !== '';
+            };
+            
+            if (!supportsSVGFilters()) {
+                container.classList.add('glass-surface--fallback');
+                return; // Stop the script if not supported and rely on fallback CSS
+            }
+            
+            // This function creates an SVG string and encodes it into a data URL.
+            // This data URL is then used by feImage to create the displacement map.
+            const generateDisplacementMap = () => {
+                const rect = container.getBoundingClientRect();
+                const actualWidth = rect.width;
+                const actualHeight = rect.height;
+                const edgeSize = Math.min(actualWidth, actualHeight) * (config.borderWidth * 0.5);
+
+                const svgContent = `
+                  <svg viewBox="0 0 ${actualWidth} ${actualHeight}" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="red-grad" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="0%" stop-color="#0000"/>
+                        <stop offset="100%" stop-color="red"/>
+                      </linearGradient>
+                      <linearGradient id="blue-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#0000"/>
+                        <stop offset="100%" stop-color="blue"/>
+                      </linearGradient>
+                    </defs>
+                    <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" fill="black"></rect>
+                    <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" rx="${config.borderRadius}" fill="url(#red-grad)" />
+                    <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" rx="${config.borderRadius}" fill="url(#blue-grad)" style="mix-blend-mode: screen" />
+                    <rect x="${edgeSize}" y="${edgeSize}" width="${actualWidth - edgeSize * 2}" height="${actualHeight - edgeSize * 2}" rx="${config.borderRadius}" fill="hsl(0 0% ${config.brightness}% / ${config.opacity})" style="filter:blur(${config.blur}px)" />
+                  </svg>
+                `;
+                return `data:image/svg+xml,${encodeURIComponent(svgContent)}`;
+            };
+
+            const updateFilters = () => {
+                // Update displacement map image
+                feImage.setAttribute('href', generateDisplacementMap());
+
+                // Update displacement scales for chromatic aberration
+                redChannel.setAttribute('scale', (config.distortionScale + config.redOffset).toString());
+                greenChannel.setAttribute('scale', (config.distortionScale + config.greenOffset).toString());
+                blueChannel.setAttribute('scale', (config.distortionScale + config.blueOffset).toString());
+                
+                // Update final blur
+                gaussianBlur.setAttribute('stdDeviation', config.displace.toString());
+            };
+
+            // Run on initial load
+            updateFilters();
+
+            // Re-run when the window is resized
+            const resizeObserver = new ResizeObserver(() => {
+                // Use a timeout to ensure the element has finished resizing before we update the map
+                setTimeout(updateFilters, 0);
+            });
+
+            resizeObserver.observe(container);
+        });
+    </script>
+</body>
+</html>
+
