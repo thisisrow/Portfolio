@@ -7,7 +7,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { contactInfo } from '@/lib/data';
-import { toast } from 'sonner';
 import React from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import AuroraBackground from '@/components/aurora-background';
