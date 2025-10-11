@@ -1,6 +1,7 @@
 import { Navbar } from '@/components/navbar';
 import { Hero } from '@/components/sections/hero';
-import { Projects } from '@/components/sections/projects';
+// import { Projects } from '@/components/sections/projects';
+import { Hi } from '@/components/sections/Hi';
 import { GithubStats } from '@/components/sections/github-stats';
 import { Contact } from '@/components/sections/contact';
 import { Footer } from '@/components/footer';
@@ -11,7 +12,8 @@ export default function Home() {
     <main className="flex min-h-screen flex-col">
       <Navbar />
       <Hero />
-      <Projects />
+      {/* <Projects /> */}
+      <Hi/>
       <GithubStats />
       <Contact />
       <Footer />
