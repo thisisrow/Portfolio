@@ -44,10 +44,10 @@ export function GithubStats() {
     <section id="github" className="py-20 relative">
       <div className="absolute top-0 left-0 w-full h-full">
         <Silk
-          speed={5}
+          speed={7}
           scale={1}
           color="#5227FF"
-          noiseIntensity={0.2}
+          noiseIntensity={0.1}
           rotation={0}
         />
       </div>
