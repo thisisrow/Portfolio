@@ -26,6 +26,15 @@ export interface GitHubData {
 }
 
 export const projects: Project[] = [
+{
+    id: "dhanvay-mhatre",
+    title: "Portfolio",
+    description: "Advanced UX features including physics-based scrolling, dynamic layout calculations, and seamless transitions",
+    imageUrl: "/dhanvay.jpeg",
+    liveUrl: "https://www.dhanvayymhatre.com",
+    githubUrl: "https://github.com/thisisrow",
+    technologies: ['Vite+React', 'TypeScript', 'Tailwind', 'Razorpay', 'GoDaddy', 'Git', 'GitHub', 'Vercel']
+  },
   {
     id: "palghar-city",
     title: "PalgharCity48",
