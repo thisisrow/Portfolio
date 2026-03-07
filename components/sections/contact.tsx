@@ -10,8 +10,7 @@ import { contactInfo } from '@/lib/data';
 import React from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import AuroraBackground from '@/components/aurora-background';
-import GlassSurface from '@/components/ui/GlassSurface';
-import '@/components/ui/GlassSurface.css';
+
 
 export function Contact() {
   const [isVisible, setIsVisible] = useState(false);
@@ -53,9 +52,9 @@ export function Contact() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <GlassSurface 
+          <div 
             className={cn(
-              "rounded-xl shadow-sm transform transition-all duration-700",
+              "bg-transparent backdrop-blur-md rounded-xl shadow-sm transform transition-all duration-700",
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             )}
           >
@@ -119,11 +118,11 @@ export function Contact() {
                 </div>
               </div>
             </div>
-          </GlassSurface>
+          </div>
 
-          <GlassSurface 
+          <div 
             className={cn(
-              "rounded-xl shadow-sm transform transition-all duration-700 delay-200",
+              "bg-transparent backdrop-blur-md rounded-xl shadow-sm transform transition-all duration-700 delay-200",
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             )}
           >
@@ -172,7 +171,7 @@ export function Contact() {
                 </form>
               )}
             </div>
-          </GlassSurface>
+          </div>
         </div>
       </div>
     </section>

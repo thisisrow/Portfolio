@@ -2,14 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { Github, Code, GitBranch, BookMarked } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { githubData } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import GlassSurface from '@/components/ui/GlassSurface';
-import '@/components/ui/GlassSurface.css';
 import Silk from '@/components/ui/Silk';
-import Image from 'next/image';
 
 export function GithubStats() {
   const [isVisible, setIsVisible] = useState(false);
@@ -92,9 +88,9 @@ export function GithubStats() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <GlassSurface
+          <div
             className={cn(
-              "transform transition-all duration-700",
+              "bg-transparent backdrop-blur-md transform transition-all duration-700",
               animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             )}
           >
@@ -123,26 +119,13 @@ export function GithubStats() {
                   </div>
                 ))}
               </div>
-
-              <div className="mt-4 flex justify-center">
-                <div className="relative w-full max-w-md h-48">
-                  <Image
-                    className="rounded-lg shadow-md"
-                    src="https://github-readme-stats.vercel.app/api/top-langs/?username=thisisrow&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact"
-                    alt="Top Languages"
-                    fill
-                    style={{ objectFit: 'contain' }}
-                    priority
-                  />
-                </div>
-              </div>
             </div>
-          </GlassSurface>
+          </div>
 
           <div className="space-y-8">
-            <GlassSurface
+            <div
               className={cn(
-                "transform transition-all duration-700 delay-200",
+                "bg-transparent backdrop-blur-md transform transition-all duration-700 delay-200",
                 animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
               )}
             >
@@ -171,11 +154,11 @@ export function GithubStats() {
                   ))}
                 </div>
               </div>
-            </GlassSurface>
+            </div>
 
-            <GlassSurface
+            <div
               className={cn(
-                "transform transition-all duration-700 delay-300",
+                "bg-transparent backdrop-blur-md transform transition-all duration-700 delay-300",
                 animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
               )}
             >
@@ -199,7 +182,7 @@ export function GithubStats() {
                   </div>
                 </div>
               </div>
-            </GlassSurface>
+            </div>
           </div>
         </div>
       </div>
@@ -221,9 +204,9 @@ function StatsCard({
   delay?: number;
 }) {
   return (
-    <GlassSurface
+    <div
       className={cn(
-        "transform transition-all duration-500",
+        "bg-transparent backdrop-blur-md transform transition-all duration-500",
         animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
       )}
       style={{ transitionDelay: `${delay}ms` }}
@@ -237,7 +220,7 @@ function StatsCard({
           {icon}
         </div>
       </div>
-    </GlassSurface>
+    </div>
   );
 }
 
