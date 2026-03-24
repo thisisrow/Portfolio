@@ -23,16 +23,16 @@ export function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-[100svh] md:min-h-screen flex items-center justify-center py-10 md:py-20 overflow-hidden">
+    <section id="home" className="relative min-h-[100svh] md:min-h-screen flex items-center justify-center py-10 md:py-20 overflow-hidden bg-slate-50 dark:bg-slate-950">
       <div className="absolute inset-0 -z-10">
         <LetterGlitch
-          glitchColors={["#2b4539", "#61dca3", "#61b3dc"]}
+          glitchColors={["#0369a1", "#06b6d4", "#0ea5e9"]}
           glitchSpeed={50}
           centerVignette={false}
           outerVignette={true}
           smooth={true}
         />
-        <div className="absolute inset-0 bg-background/80 " />
+        <div className="absolute inset-0 bg-slate-50 dark:bg-slate-950 opacity-90" />
       </div>
 
       <div className="container px-4 relative">
@@ -64,7 +64,7 @@ export function Hero() {
               </div>
             </div>
 
-            <p className="text-lg text-muted-foreground max-w-lg">
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-lg">
               I build exceptional digital experiences with modern technologies.
               Specializing in React, Next.js, Node.js, Express.js and more.
             </p>

@@ -9,7 +9,6 @@ import { cn } from '@/lib/utils';
 import { contactInfo } from '@/lib/data';
 import React from 'react';
 import { useForm, ValidationError } from '@formspree/react';
-import AuroraBackground from '@/components/aurora-background';
 
 
 export function Contact() {
@@ -36,14 +35,8 @@ export function Contact() {
   }, []);
 
   return (
-    <section id="contact" className="py-20 relative overflow-hidden">
-      <AuroraBackground
-        colorStops={["#FF94B4", "#5227FF", "#FF3232"]}
-        blend={0.5}
-        amplitude={1.0}
-        speed={0.5}
-      />
-      <div className="container px-4 mx-auto relative z-10">
+    <section id="contact" className="py-20 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+      <div className="container px-4 mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -54,7 +47,7 @@ export function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div 
             className={cn(
-              "bg-transparent backdrop-blur-md rounded-xl shadow-sm transform transition-all duration-700",
+              "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm transform transition-all duration-700",
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             )}
           >
@@ -67,7 +60,7 @@ export function Contact() {
                     <Mail className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Email</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Email</p>
                     <a href={`mailto:${contactInfo.email}`} className="font-medium hover:text-primary">
                       {contactInfo.email}
                     </a>
@@ -79,7 +72,7 @@ export function Contact() {
                     <MapPin className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Location</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Location</p>
                     <p className="font-medium">{contactInfo.location}</p>
                   </div>
                 </div>
@@ -92,7 +85,7 @@ export function Contact() {
                     href={contactInfo.socialLinks.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="h-10 w-10 bg-card border border-border rounded-full flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                    className="h-10 w-10 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-primary hover:border-primary transition-colors"
                     aria-label="GitHub"
                   >
                     <Github className="h-5 w-5" />
@@ -101,7 +94,7 @@ export function Contact() {
                     href={contactInfo.socialLinks.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="h-10 w-10 bg-card border border-border rounded-full flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                    className="h-10 w-10 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-primary hover:border-primary transition-colors"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="h-5 w-5" />
@@ -110,7 +103,7 @@ export function Contact() {
                     href={contactInfo.socialLinks.twitter}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="h-10 w-10 bg-card border border-border rounded-full flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                    className="h-10 w-10 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-primary hover:border-primary transition-colors"
                     aria-label="Twitter"
                   >
                     <Twitter className="h-5 w-5" />
@@ -122,7 +115,7 @@ export function Contact() {
 
           <div 
             className={cn(
-              "bg-transparent backdrop-blur-md rounded-xl shadow-sm transform transition-all duration-700 delay-200",
+              "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm transform transition-all duration-700 delay-200",
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             )}
           >

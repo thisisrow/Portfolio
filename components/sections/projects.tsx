@@ -10,11 +10,11 @@ import Image from 'next/image';
 
 export function Projects() {
   return (
-    <section id="projects" className="py-20 bg-muted/30">
+    <section id="projects" className="py-20 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
       <div className="container px-4 mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Projects</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
             Check out some of my recent work. These projects showcase my skills and experience
             in building web applications with modern technologies.
           </p>
@@ -40,7 +40,7 @@ export function Projects() {
                 </div>
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-muted-foreground mb-4">{project.description}</p>
+                  <p className="text-slate-600 dark:text-slate-400 mb-4">{project.description}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.slice(0, 3).map((tech) => (

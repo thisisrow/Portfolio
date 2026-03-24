@@ -1,242 +1,193 @@
-'use client';
+"use client";
+import { useState } from "react";
+import Image from "next/image";
 
-import { useEffect, useState } from 'react';
-import { Github, Code, GitBranch, BookMarked } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { githubData } from '@/lib/data';
-import { cn } from '@/lib/utils';
-import Silk from '@/components/ui/Silk';
+const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
+const SI = "https://cdn.simpleicons.org";
 
-export function GithubStats() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [animate, setAnimate] = useState(false);
+type Tech = { name: string; img: string };
+type Category = {
+  label: string;
+  icon: string;
+  accentClass: string;
+  activeClass: string;
+  techs: Tech[];
+};
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
+const categories: Category[] = [
+  {
+    label: "Frontend", icon: "code", accentClass: "text-sky-600",
+    activeClass: "bg-sky-500 text-white border-sky-500",
+    techs: [
+      { name: "React.js", img: `${DEVICON}/react/react-original.svg` },
+      { name: "Next.js", img: `${DEVICON}/nextjs/nextjs-original.svg` },
+      { name: "Angular", img: `${DEVICON}/angularjs/angularjs-original.svg` },
+      { name: "TanStack", img: `${SI}/reactquery/FF4154` },
+      { name: "PHP", img: `${DEVICON}/php/php-original.svg` },
+    ],
+  },
+  {
+    label: "Mobile", icon: "phone_iphone", accentClass: "text-emerald-600",
+    activeClass: "bg-emerald-500 text-white border-emerald-500",
+    techs: [
+      { name: "React Native", img: `${DEVICON}/react/react-original.svg` },
+      { name: "Flutter", img: `${DEVICON}/flutter/flutter-original.svg` },
+    ],
+  },
+  {
+    label: "Backend", icon: "dns", accentClass: "text-violet-600",
+    activeClass: "bg-violet-500 text-white border-violet-500",
+    techs: [
+      { name: "Node.js", img: `${DEVICON}/nodejs/nodejs-original.svg` },
+      { name: "Express.js", img: `${DEVICON}/express/express-original.svg` },
+    ],
+  },
+  {
+    label: "Database", icon: "storage", accentClass: "text-orange-600",
+    activeClass: "bg-orange-500 text-white border-orange-500",
+    techs: [
+      { name: "PostgreSQL", img: `${DEVICON}/postgresql/postgresql-original.svg` },
+      { name: "MongoDB", img: `${DEVICON}/mongodb/mongodb-original.svg` },
+      { name: "Redis", img: `${DEVICON}/redis/redis-original.svg` },
+      { name: "Cassandra", img: `${SI}/apachecassandra/1287B1` },
+      { name: "CockroachDB", img: `${SI}/cockroachlabs/6933FF` },
+      { name: "Oracle", img: `${DEVICON}/oracle/oracle-original.svg` },
+    ],
+  },
+  {
+    label: "Cloud", icon: "cloud", accentClass: "text-amber-600",
+    activeClass: "bg-amber-500 text-white border-amber-500",
+    techs: [
+      { name: "AWS", img: `${DEVICON}/amazonwebservices/amazonwebservices-original-wordmark.svg` },
+      { name: "Vercel", img: `${SI}/vercel/000000` },
+      { name: "Render", img: `${SI}/render/46E3B7` },
+      { name: "Railway", img: `${SI}/railway/0B0D0E` },
+    ],
+  },
+  {
+    label: "DevOps", icon: "settings_suggest", accentClass: "text-cyan-600",
+    activeClass: "bg-cyan-500 text-white border-cyan-500",
+    techs: [
+      { name: "Docker", img: `${DEVICON}/docker/docker-original.svg` },
+      { name: "Kubernetes", img: `${DEVICON}/kubernetes/kubernetes-plain.svg` },
+      { name: "GitHub Actions", img: `${SI}/githubactions/2088FF` },
+      { name: "Nginx", img: `${DEVICON}/nginx/nginx-original.svg` },
+      { name: "PM2", img: `${SI}/pm2/2B037A` },
+    ],
+  },
+  {
+    label: "Testing", icon: "labs", accentClass: "text-rose-600",
+    activeClass: "bg-rose-500 text-white border-rose-500",
+    techs: [
+      { name: "SonarQube", img: `${DEVICON}/sonarqube/sonarqube-original-wordmark.svg` },
+      { name: "Jest", img: `${DEVICON}/jest/jest-plain.svg` },
+      { name: "Postman", img: `${DEVICON}/postman/postman-original.svg` },
+    ],
+  },
+];
 
-    const section = document.getElementById('github');
-    if (section) {
-      observer.observe(section);
-    }
+// Flatten all for marquee rows
+const allTechs = categories.flatMap((c) => c.techs);
+const mid = Math.ceil(allTechs.length / 2);
+const row1 = allTechs.slice(0, mid);
+const row2 = allTechs.slice(mid);
 
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (isVisible) {
-      setAnimate(true);
-    }
-  }, [isVisible]);
-
+function MarqueeCard({ tech }: { tech: Tech }) {
   return (
-    <section id="github" className="py-20 relative">
-      <div className="absolute top-0 left-0 w-full h-full">
-        <Silk
-          speed={7}
-          scale={1}
-          color="#5227FF"
-          noiseIntensity={0.1}
-          rotation={0}
-        />
-      </div>
-
-      <div className="container px-4 mx-auto relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">GitHub Stats</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            A glimpse into my coding activity and technology expertise based on my GitHub profile.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          <StatsCard 
-            icon={<Github className="h-8 w-8" />}
-            title="Repositories"
-            value={githubData.totalRepos.toString()}
-            animate={animate}
-            delay={0}
-          />
-          <StatsCard 
-            icon={<Code className="h-8 w-8" />}
-            title="Languages"
-            value={githubData.topLanguages.length.toString()}
-            animate={animate}
-            delay={100}
-          />
-          <StatsCard 
-            icon={<GitBranch className="h-8 w-8" />}
-            title="Commits"
-            value={githubData.totalCommits.toString()}
-            animate={animate}
-            delay={200}
-          />
-          <StatsCard 
-            icon={<BookMarked className="h-8 w-8" />}
-            title="Tech Stack"
-            value={githubData.topTechnologies.length.toString()}
-            animate={animate}
-            delay={300}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div
-            className={cn(
-              "bg-transparent backdrop-blur-md transform transition-all duration-700",
-              animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-            )}
-          >
-            <div className="p-6 w-full">
-              <div className="flex items-center gap-2">
-                <Code className="h-5 w-5" />
-                <h3 className="text-lg font-semibold">Language Distribution</h3>
-              </div>
-
-              <div className="mt-4 space-y-4">
-                {githubData.topLanguages.map((lang, index) => (
-                  <div key={lang.name} className="space-y-1">
-                    <div className="flex justify-between text-sm">
-                      <span>{lang.name}</span>
-                      <span className="text-muted-foreground">{lang.percentage ?? 0}%</span>
-                    </div>
-                    <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-                      <div 
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{ 
-                          width: `${lang.percentage ?? 0}%`,
-                          backgroundColor: lang.color
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-8">
-            <div
-              className={cn(
-                "bg-transparent backdrop-blur-md transform transition-all duration-700 delay-200",
-                animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-              )}
-            >
-              <div className="p-6 w-full">
-                <div className="flex items-center gap-2">
-                  <GitBranch className="h-5 w-5" />
-                  <h3 className="text-lg font-semibold">Frequently Used Technologies</h3>
-                </div>
-                <div className="mt-4 space-y-4">
-                  {githubData.frequentlyUsedLanguages.map((lang) => (
-                    <div key={lang.name} className="space-y-1">
-                      <div className="flex justify-between text-sm">
-                        <span className="flex items-center gap-2">
-                          <span className={`language-icon ${lang.icon}`}>{getLanguageIcon(lang.icon)}</span>
-                          {lang.name}
-                        </span>
-                        <span className="text-muted-foreground">{lang.proficiency ?? 0}%</span>
-                      </div>
-                      <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-primary rounded-full transition-all duration-500"
-                          style={{ width: `${lang.proficiency ?? 0}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div
-              className={cn(
-                "bg-transparent backdrop-blur-md transform transition-all duration-700 delay-300",
-                animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-              )}
-            >
-              <div className="p-6 w-full">
-                <div className="flex items-center gap-2">
-                  <BookMarked className="h-5 w-5" />
-                  <h3 className="text-lg font-semibold">Tech Stack</h3>
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {githubData.topTechnologies.map((tech) => (
-                    <Badge key={tech} variant="secondary">{tech}</Badge>
-                  ))}
-                </div>
-
-                <div className="mt-6">
-                  <h4 className="text-sm font-semibold mb-2">Currently Learning</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {githubData.learning.map((tech) => (
-                      <Badge key={tech} variant="outline">{tech}</Badge>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function StatsCard({ 
-  icon, 
-  title, 
-  value, 
-  animate, 
-  delay = 0 
-}: { 
-  icon: React.ReactNode; 
-  title: string; 
-  value: string; 
-  animate: boolean;
-  delay?: number;
-}) {
-  return (
-    <div
-      className={cn(
-        "bg-transparent backdrop-blur-md transform transition-all duration-500",
-        animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-      )}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      <div className="p-6 flex items-center justify-between w-full">
-        <div>
-          <p className="text-sm text-muted-foreground">{title}</p>
-          <h3 className="text-3xl font-bold mt-1">{value}</h3>
-        </div>
-        <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-          {icon}
-        </div>
-      </div>
+    <div className="flex flex-col items-center justify-center gap-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm shrink-0 w-[72px] h-[72px] p-2">
+      <Image
+        src={tech.img}
+        alt={tech.name}
+        width={28}
+        height={28}
+        unoptimized
+        className="object-contain"
+      />
+      <span className="text-[8px] font-semibold text-center text-slate-600 dark:text-slate-400 leading-tight w-full line-clamp-1">
+        {tech.name}
+      </span>
     </div>
   );
 }
 
-function getLanguageIcon(icon: string) {
-  switch (icon) {
-    case 'js':
-      return 'JS';
-    case 'ts':
-      return 'TS';
-    case 'react':
-      return 'R';
-    case 'node':
-      return 'N';
-    case 'html':
-      return 'H';
-    default:
-      return icon.slice(0, 1).toUpperCase();
-  }
+export function GithubStats() {
+  const [activeTab, setActiveTab] = useState(0);
+  const active = categories[activeTab];
+
+  return (
+    <section className="py-12 overflow-hidden bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+      {/* Heading */}
+      <div className="max-w-7xl mx-auto px-6 mb-14 text-center">
+        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-sm mb-5">
+          <span className="material-symbols-rounded text-sm">terminal</span>
+          Built With The Best
+        </span>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-6 tracking-tight leading-tight">
+          Our <span className="gradient-text">Technology Stack</span>
+        </h2>
+        <p className="text-sm md:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          We choose the right tool for the right job — industry-grade, battle-tested technologies
+          that power production apps at&nbsp;scale.
+        </p>
+      </div>
+
+      {/* ── Marquee rows ── */}
+      <div className="space-y-3 mb-16">
+        {/* Row 1 — scrolling left */}
+        <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_8%,white_92%,transparent)]">
+          <div className="flex flex-nowrap gap-3 w-max animate-[marquee_30s_linear_infinite]">
+            {[...row1, ...row1, ...row1].map((t, i) => <MarqueeCard key={`r1-${i}`} tech={t} />)}
+          </div>
+        </div>
+        {/* Row 2 — scrolling right */}
+        <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_8%,white_92%,transparent)]">
+          <div className="flex flex-nowrap gap-3 w-max animate-[marquee-reverse_35s_linear_infinite]">
+            {[...row2, ...row2, ...row2].map((t, i) => <MarqueeCard key={`r2-${i}`} tech={t} />)}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Tabbed categories ── */}
+      <div className="max-w-5xl mx-auto px-6">
+        {/* Tab pills */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {categories.map((cat, i) => (
+            <button
+              key={cat.label}
+              onClick={() => setActiveTab(i)}
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full border text-sm font-semibold transition-all duration-200 ${i === activeTab
+                ? `${cat.activeClass} shadow-md shadow-black/10`
+                : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-800 hover:border-primary/40 hover:text-primary"
+                }`}
+            >
+              <span className="material-symbols-rounded text-[15px]">{cat.icon}</span>
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Active category tech cards */}
+        <div className="flex flex-wrap justify-center gap-5 min-h-[140px] transition-all">
+          {active.techs.map((tech) => (
+            <div
+              key={tech.name}
+              className="flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-4 hover:scale-120 transition-all w-28 h-28 p-4"
+            >
+              <Image
+                src={tech.img}
+                alt={tech.name}
+                width={40}
+                height={40}
+                unoptimized
+                className="object-contain"
+              />
+              <span className="text-[11px] font-semibold text-center text-slate-700 dark:text-slate-300 leading-tight">
+                {tech.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
